@@ -16,7 +16,7 @@ export default function Hero() {
             Whether you stand with the mighty or root for the underdogs, every
             hero's journey starts here.{" "}
             <motion.span
-              className="px-2 py-1 rounded font-bold relative overflow-hidden"
+              className="px-2 py-1 cursor-pointer font-bold relative overflow-hidden"
               initial={{
                 color: "white",
               }}
@@ -30,7 +30,7 @@ export default function Hero() {
               }}
             >
               <motion.div
-                className="absolute inset-0 bg-white"
+                className="absolute inset-0 bg-white rounded-md"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{
