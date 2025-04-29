@@ -131,7 +131,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply text-foreground min-h-screen;
+    @apply text-foreground min-h-screen font-outfit;
     color: #ffffff;
     background-image: linear-gradient(
       to bottom,
