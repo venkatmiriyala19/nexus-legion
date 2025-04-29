@@ -1,3 +1,6 @@
+"use client";
+import { motion } from "framer-motion";
+
 export default function Hero() {
   return (
     <div className="flex items-center justify-center">
@@ -9,14 +12,37 @@ export default function Hero() {
           <h1 className="font-cinzel text-4xl my-5 font-black mb-6">
             One Legion. Many Worlds. Your Heroes.
           </h1>
-          <p className="font-spectral text-lg md:text-xl leading-relaxed max-w-4xl mt-1">
+          <div className="font-spectral text-lg md:text-xl leading-relaxed max-w-4xl mt-1">
             Whether you stand with the mighty or root for the underdogs, every
             hero's journey starts here.{" "}
-            <span className="bg-white text-black px-2 py-1 rounded font-bold">
-              Join the Nexus
-            </span>{" "}
+            <motion.span
+              className="px-2 py-1 rounded font-bold relative overflow-hidden"
+              initial={{
+                color: "white",
+              }}
+              animate={{
+                color: "black",
+              }}
+              transition={{
+                delay: 0.8,
+                duration: 0.5,
+                ease: "easeOut",
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-white"
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  delay: 0.8,
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+              />
+              <span className="relative z-10">Join the Nexus</span>
+            </motion.span>{" "}
             and explore the heroes who inspire generations.
-          </p>
+          </div>
         </div>
       </div>
     </div>
