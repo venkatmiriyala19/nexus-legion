@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
@@ -7,11 +6,19 @@
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-codystar: var(--font-codystar);
+  --font-spectral: var(--font-spectral);
+  --font-outfit: var(--font-outfit);
+  --font-cinzel: var(--font-cinzel);
+  --font-bungee: var(--font-bungee);
+
+  --color-deepDark: #171715; /* Add custom color */
+  --color-purpleNight: #3e065f; /* Add custom color */
 }
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(1 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -124,6 +131,12 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground min-h-screen;
+    color: #ffffff;
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-deepDark) -40%,
+      var(--color-purpleNight) 100%
+    );
   }
 }
