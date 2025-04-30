@@ -3,6 +3,8 @@ import Hero from "./landing/Hero";
 import Image from "next/image";
 import Waves from "./landing/Waves";
 import Carousel from "./landing/Carousel";
+import Features from "./landing/Features";
+import Footer from "./landing/Footer";
 export default function Home() {
   return (
     <>
@@ -19,6 +21,8 @@ export default function Home() {
       </div>
       <Waves />
       <Carousel />
+      <Features />
+      <Footer />
     </>
   );
 }
