@@ -126,6 +126,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Add this at the end of your @layer base block in global.css */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -138,5 +140,16 @@
       var(--color-deepDark) -40%,
       var(--color-purpleNight) 100%
     );
+  }
+
+  /* Add the custom animation for the loader here */
+  @keyframes spin-slow-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .animate-spin-slow-reverse {
+    animation: spin-slow-reverse 8s linear infinite;
   }
 }
