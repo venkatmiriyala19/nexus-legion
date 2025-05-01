@@ -76,7 +76,7 @@ export default function ClientWrapper({ children }) {
       <SignedIn>
         {" "}
         <Navbar />
-        <div className="mt-24">{children}</div>
+        <div className="mt-8">{children}</div>
       </SignedIn>
     </>
   );

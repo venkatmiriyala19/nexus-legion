@@ -117,51 +117,58 @@ export default function Dock({
   const mouseX = useMotionValue(Infinity);
   const isHovered = useMotionValue(0);
 
+  // Calculate the maximum expansion space needed
   const maxHeight = useMemo(
     () => Math.max(dockHeight, magnification + magnification / 2 + 4),
     [magnification, dockHeight]
   );
-  const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
-  const height = useSpring(heightRow, spring);
 
   return (
-    <motion.div
-      style={{
-        height,
-        scrollbarWidth: "none",
-      }}
-      className="fixed top-0 inset-x-0 flex justify-center z-10 w-full"
-    >
+    <div className="relative" style={{ height: panelHeight }}>
+      {/* This is a placeholder that maintains the consistent height in the document flow */}
+      <div className="w-full" style={{ height: panelHeight }}></div>
+
+      {/* The actual dock that expands on hover without affecting layout */}
       <motion.div
-        onMouseMove={({ pageX }) => {
-          isHovered.set(1);
-          mouseX.set(pageX);
-        }}
-        onMouseLeave={() => {
-          isHovered.set(0);
-          mouseX.set(Infinity);
-        }}
-        className={`${className} relative mt-4 flex items-end w-fit gap-4 rounded-2xl border-neutral-700 border-2 pb-2 px-4 bg-[#060606]/80 backdrop-blur-sm`}
-        style={{ height: panelHeight }}
-        role="toolbar"
-        aria-label="Application dock"
+        className="absolute top-0 left-0 right-0 flex justify-center z-10 w-full overflow-visible"
+        style={{ pointerEvents: "none" }}
       >
-        {items.map((item, index) => (
-          <DockItem
-            key={index}
-            onClick={item.onClick}
-            className={item.className}
-            mouseX={mouseX}
-            spring={spring}
-            distance={distance}
-            magnification={magnification}
-            baseItemSize={baseItemSize}
-          >
-            <DockIcon>{item.icon}</DockIcon>
-            <DockLabel>{item.label}</DockLabel>
-          </DockItem>
-        ))}
+        <motion.div
+          onMouseMove={({ pageX }) => {
+            isHovered.set(1);
+            mouseX.set(pageX);
+          }}
+          onMouseLeave={() => {
+            isHovered.set(0);
+            mouseX.set(Infinity);
+          }}
+          className={`${className} relative mt-4 flex items-end w-fit gap-4 rounded-2xl border-neutral-700 border-2 pb-2 px-4 bg-[#060606]/80 backdrop-blur-sm`}
+          style={{
+            height: panelHeight,
+            pointerEvents: "auto",
+            transform: `translateY(0)`,
+            transformOrigin: "bottom center",
+          }}
+          role="toolbar"
+          aria-label="Application dock"
+        >
+          {items.map((item, index) => (
+            <DockItem
+              key={index}
+              onClick={item.onClick}
+              className={item.className}
+              mouseX={mouseX}
+              spring={spring}
+              distance={distance}
+              magnification={magnification}
+              baseItemSize={baseItemSize}
+            >
+              <DockIcon>{item.icon}</DockIcon>
+              <DockLabel>{item.label}</DockLabel>
+            </DockItem>
+          ))}
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
