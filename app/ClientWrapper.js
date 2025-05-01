@@ -4,9 +4,10 @@ import { SignedIn, SignedOut, SignInButton, useAuth } from "@clerk/nextjs";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SuperheroLoader from "./components/SuperheroLoader";
+import Navbar from "./components/Navbar";
 
 // Minimum time to show the loader in milliseconds (3 seconds)
-const MIN_LOADER_TIME = 3000;
+const MIN_LOADER_TIME = 0;
 
 export default function ClientWrapper({ children }) {
   const pathname = usePathname();
@@ -72,7 +73,11 @@ export default function ClientWrapper({ children }) {
         <SignInButton />
         {children}
       </SignedOut>
-      <SignedIn>{children}</SignedIn>
+      <SignedIn>
+        {" "}
+        <Navbar />
+        <div className="mt-24">{children}</div>
+      </SignedIn>
     </>
   );
 }
