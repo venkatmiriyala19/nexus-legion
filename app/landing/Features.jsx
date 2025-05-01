@@ -52,7 +52,7 @@ export default function Features() {
                   {feature.title}
                 </h3>
               </div>
-              <p className="font-outfit text-2xl bg-gradient-to-b from-white to-[#3E065F] bg-clip-text text-transparent">
+              <p className="font-outfit text-2xl bg-gradient-to-b from-white to-[#983bce] bg-clip-text text-transparent">
                 <span className=" font-medium">
                   {feature.description.split(" ").slice(0, 2).join(" ")}
                 </span>{" "}
@@ -80,7 +80,7 @@ export default function Features() {
                   {feature.title}
                 </h3>
               </div>
-              <p className="font-outfit text-2xl bg-gradient-to-b from-white to-[#3E065F] bg-clip-text text-transparent">
+              <p className="font-outfit text-2xl bg-gradient-to-b from-white to-[#983bce] bg-clip-text text-transparent">
                 <span className=" font-medium">
                   {feature.description.split(" ").slice(0, 2).join(" ")}
                 </span>{" "}

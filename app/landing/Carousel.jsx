@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { motion } from "framer-motion";
 export default function Carousel() {
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -55,10 +55,16 @@ export default function Carousel() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-5xl mx-auto p-4 space-y-6">
-      <h1 className="font-cinzel text-4xl font-bold text-center text-white">
+      <motion.h1
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        className="font-cinzel text-4xl font-bold text-center text-white"
+      >
         Myth. Power. Legacy.{" "}
         <span className="text-[#7B61FF]">Uncover the Icons.</span>
-      </h1>
+      </motion.h1>
 
       <div className="relative w-full overflow-hidden rounded-3xl">
         {/* Main carousel image */}
