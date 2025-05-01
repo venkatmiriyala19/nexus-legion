@@ -61,7 +61,7 @@ export default function SuperheroLoader() {
       </div>
 
       {/* Progress bar */}
-      <div className="w-64 h-2 bg-gray-700/50 rounded-full overflow-hidden mb-2">
+      <div className="w-48 h-2 bg-gray-700/50 rounded-full overflow-hidden mb-2">
         <div
           className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
