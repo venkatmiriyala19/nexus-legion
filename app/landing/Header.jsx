@@ -1,9 +1,20 @@
+"use client";
+import SplitText from "@/components/ui/SplitText/SplitText";
 export default function Header() {
   return (
     <div className="my-8">
-      <h1 className="font-codystar text-center uppercase text-5xl color-white">
-        Nexus Legion
-      </h1>
+      <div className="flex items-center justify-center">
+        <SplitText
+          text="Nexus Legion"
+          className="font-codystar text-center uppercase text-5xl color-white"
+          delay={150}
+          animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
+          animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+          easing="easeOutCubic"
+          threshold={0.2}
+          rootMargin="-50px"
+        />
+      </div>
       <h1 className="font-bungee text-center uppercase text-4xl color-white mt-3">
         One Legion. Infinite Realms.
       </h1>

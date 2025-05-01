@@ -35,7 +35,7 @@ export default function Features() {
   ];
 
   return (
-    <div className=" text-gray-300 p-8">
+    <div className=" text-gray-300 p-8 my-8">
       <div className="max-w-6xl mx-auto">
         {/* Top row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
