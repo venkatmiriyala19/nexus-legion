@@ -25,6 +25,7 @@ function DockItem({
   distance,
   magnification,
   baseItemSize,
+  isActive = false,
 }) {
   const ref = useRef(null);
   const isHovered = useMotionValue(0);
@@ -44,6 +45,9 @@ function DockItem({
   );
   const size = useSpring(targetSize, spring);
 
+  // Determine background and icon color based on active state
+  const bgColor = isActive ? "bg-white" : "bg-[#1e1e1e]";
+
   return (
     <motion.div
       ref={ref}
@@ -56,12 +60,15 @@ function DockItem({
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center rounded-full bg-[#060606] border-neutral-700 border-2 shadow-md ${className}`}
+      className={`relative inline-flex items-center justify-center rounded-full ${bgColor} cursor-pointer shadow-md ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
+      aria-pressed={isActive}
     >
-      {Children.map(children, (child) => cloneElement(child, { isHovered }))}
+      {Children.map(children, (child) =>
+        cloneElement(child, { isHovered, isActive })
+      )}
     </motion.div>
   );
 }
@@ -85,7 +92,7 @@ function DockLabel({ children, className = "", ...rest }) {
           animate={{ opacity: 1, y: 10 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
-          className={`${className} absolute bottom-[-2rem] left-1/2 w-fit whitespace-pre rounded-md border border-neutral-700 bg-[#060606] px-2 py-0.5 text-xs text-white z-20`}
+          className={`${className} absolute bottom-[-2rem] left-1/2 w-fit whitespace-pre rounded-md border border-neutral-700 bg-[#1e1e1e] px-2 py-0.5 text-xs text-white z-20`}
           role="tooltip"
           style={{ x: "-50%" }}
         >
@@ -96,9 +103,14 @@ function DockLabel({ children, className = "", ...rest }) {
   );
 }
 
-function DockIcon({ children, className = "" }) {
+function DockIcon({ children, className = "", isActive = false }) {
+  // Set the icon color based on active state
+  const iconColor = isActive ? "text-[#1E1E1E]" : "text-white";
+
   return (
-    <div className={`flex items-center justify-center ${className}`}>
+    <div
+      className={`flex items-center justify-center ${iconColor} ${className}`}
+    >
       {children}
     </div>
   );
@@ -113,6 +125,7 @@ export default function Dock({
   panelHeight = 64,
   dockHeight = 256,
   baseItemSize = 50,
+  currentPath = "",
 }) {
   const mouseX = useMotionValue(Infinity);
   const isHovered = useMotionValue(0);
@@ -142,7 +155,7 @@ export default function Dock({
             isHovered.set(0);
             mouseX.set(Infinity);
           }}
-          className={`${className} relative mt-4 flex items-end w-fit gap-4 rounded-2xl border-neutral-700 border-2 pb-2 px-4 bg-[#060606]/80 backdrop-blur-sm`}
+          className={`${className} relative mt-4 flex items-end w-fit gap-4 rounded-2xl pb-2 px-4 bg-[#3E065F]/80 backdrop-blur-sm`}
           style={{
             height: panelHeight,
             pointerEvents: "auto",
@@ -152,21 +165,27 @@ export default function Dock({
           role="toolbar"
           aria-label="Application dock"
         >
-          {items.map((item, index) => (
-            <DockItem
-              key={index}
-              onClick={item.onClick}
-              className={item.className}
-              mouseX={mouseX}
-              spring={spring}
-              distance={distance}
-              magnification={magnification}
-              baseItemSize={baseItemSize}
-            >
-              <DockIcon>{item.icon}</DockIcon>
-              <DockLabel>{item.label}</DockLabel>
-            </DockItem>
-          ))}
+          {items.map((item, index) => {
+            // Check if this item corresponds to the current route
+            const isActive = item.path === currentPath;
+
+            return (
+              <DockItem
+                key={index}
+                onClick={item.onClick}
+                className={item.className}
+                mouseX={mouseX}
+                spring={spring}
+                distance={distance}
+                magnification={magnification}
+                baseItemSize={baseItemSize}
+                isActive={isActive}
+              >
+                <DockIcon isActive={isActive}>{item.icon}</DockIcon>
+                <DockLabel>{item.label}</DockLabel>
+              </DockItem>
+            );
+          })}
         </motion.div>
       </motion.div>
     </div>
