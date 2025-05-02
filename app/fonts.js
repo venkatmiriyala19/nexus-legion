@@ -4,6 +4,7 @@ import {
   Outfit,
   Cinzel_Decorative,
   Bungee_Hairline,
+  EB_Garamond,
 } from "next/font/google";
 
 export const codystar = Codystar({
@@ -30,4 +31,9 @@ export const bungee = Bungee_Hairline({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-bungee",
+});
+export const garamond = EB_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "700"], // You can specify multiple weights if needed
+  variable: "--font-ebgaramond",
 });
