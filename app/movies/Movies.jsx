@@ -77,12 +77,12 @@ export default function Movies() {
             onKeyPress={handleKeyPress}
           />
 
-          <button
+          {/* <button
             onClick={handleSearch}
             className="ml-2 px-3 py-1 bg-[#7B61FF] cursor-pointer text-white rounded-full text-sm hover:bg-[#a889ff] transition-colors"
           >
             Search
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -98,7 +98,7 @@ export default function Movies() {
               image={
                 movie.poster_path
                   ? `${IMAGE_BASE_URL}${movie.poster_path}`
-                  : "/images/placeholder.jpg"
+                  : "/images/StarWars.jpg"
               }
               title={movie.title}
               year={

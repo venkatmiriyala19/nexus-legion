@@ -163,7 +163,7 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #790eb7;
+  background-color: #7b61ff;
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: content-box;
