@@ -105,7 +105,7 @@ export default function Icons() {
           <Search size={18} className="text-white/70 mr-4" />
           <input
             type="text"
-            placeholder="Search for your favourite superhero"
+            placeholder="Search for your favourite SuperIcon"
             className="bg-transparent text-white placeholder-white/70 focus:outline-none w-full"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
