@@ -1,0 +1,485 @@
+{
+  "quotes": [
+    {
+      "quote": "You either die a hero, or you live long enough to see yourself become the villain.",
+      "character": "Harvey Dent",
+      "movie": "The Dark Knight",
+      "year": 2008
+    },
+    {
+      "quote": "Why so serious?",
+      "character": "The Joker",
+      "movie": "The Dark Knight",
+      "year": 2008
+    },
+    {
+      "quote": "I can do this all day.",
+      "character": "Steve Rogers / Captain America",
+      "movie": "Captain America: Civil War",
+      "year": 2016
+    },
+    {
+      "quote": "I'm just here for the gasoline.",
+      "character": "Max Rockatansky",
+      "movie": "Mad Max",
+      "year": 1979
+    },
+    {
+      "quote": "An empire toppled by its enemies can rise again. But one which crumbles from within? That's dead... forever.",
+      "character": "Helmut Zemo",
+      "movie": "Captain America: Civil War",
+      "year": 2016
+    },
+    {
+      "quote": "MJ and I, we're gonna have a hell of a time!",
+      "character": "Norman Osborn / Green Goblin",
+      "movie": "Spider-Man",
+      "year": 2002
+    },
+    {
+      "quote": "Tell me something, my friend. You ever dance with the devil in the pale moonlight?",
+      "character": "Jack Napier / The Joker",
+      "movie": "Batman",
+      "year": 1989
+    },
+    {
+      "quote": "No protectors here: no Lanterns, no Kryptonian. This world will fall — like all the others.",
+      "character": "Steppenwolf",
+      "movie": "Justice League",
+      "year": 2017
+    },
+    {
+      "quote": "You've come to die! Your world is now my world, like all worlds!",
+      "character": "Dormammu",
+      "movie": "Doctor Strange",
+      "year": 2016
+    },
+    {
+      "quote": "The world is not what it ought to be. Humanity longs for the eternal for a world beyond time, because time is what enslaves us.",
+      "character": "Kaecilius",
+      "movie": "Doctor Strange",
+      "year": 2016
+    },
+    {
+      "quote": "You're a wizard, Harry.",
+      "character": "Rubeus Hagrid",
+      "movie": "Harry Potter and the Sorcerer's Stone",
+      "year": 2001
+    },
+    {
+      "quote": "Don't you turn your back on me, Harry Potter! I want you to look at me when I kill you! I want to see the light leave your eyes!",
+      "character": "Lord Voldemort",
+      "movie": "Harry Potter and the Goblet of Fire",
+      "year": 2005
+    },
+    {
+      "quote": "Happiness can be found even in the darkest of times, if one only remembers to turn on the light.",
+      "character": "Albus Dumbledore",
+      "movie": "Harry Potter and the Prisoner of Azkaban",
+      "year": 2004
+    },
+    {
+      "quote": "I solemnly swear that I am up to no good.",
+      "character": "Harry Potter",
+      "movie": "Harry Potter and the Prisoner of Azkaban",
+      "year": 2004
+    },
+    {
+      "quote": "There is no good and evil. There is only power.",
+      "character": "Lord Voldemort",
+      "movie": "Harry Potter and the Sorcerer's Stone",
+      "year": 2001
+    },
+    {
+      "quote": "It’s not much, but it’s home.",
+      "character": "Ron Weasley",
+      "movie": "Harry Potter and the Chamber of Secrets",
+      "year": 2002
+    },
+    {
+      "quote": "Anything’s possible if you’ve got enough nerve.",
+      "character": "Ginny Weasley",
+      "movie": "Harry Potter and the Half-Blood Prince",
+      "year": 2009
+    },
+    {
+      "quote": "Do, or do not. There is no try.",
+      "character": "Yoda",
+      "movie": "Star Wars: The Empire Strikes Back",
+      "year": 1980
+    },
+    {
+      "quote": "It is unavoidable. It is your destiny. You - like your father - are now... mine!",
+      "character": "Emperor Palpatine / Darth Sidious",
+      "movie": "Star Wars: Return of the Jedi",
+      "year": 1983
+    },
+    {
+      "quote": "May the Force be with you.",
+      "character": "Han Solo",
+      "movie": "Star Wars: A New Hope",
+      "year": 1977
+    },
+    {
+      "quote": "I find your lack of faith disturbing.",
+      "character": "Darth Vader",
+      "movie": "Star Wars: A New Hope",
+      "year": 1977
+    },
+    {
+      "quote": "Fear is the path to the dark side. Fear leads to anger, anger leads to hate, hate leads to suffering.",
+      "character": "Yoda",
+      "movie": "Star Wars: The Phantom Menace",
+      "year": 1999
+    },
+    {
+      "quote": "I am no man!",
+      "character": "Éowyn",
+      "movie": "The Lord of the Rings: The Return of the King",
+      "year": 2003
+    },
+    {
+      "quote": "There’s some good in this world, Mr. Frodo, and it’s worth fighting for.",
+      "character": "Samwise Gamgee",
+      "movie": "The Lord of the Rings: The Two Towers",
+      "year": 2002
+    },
+    {
+      "quote": "You shall not pass!",
+      "character": "Gandalf",
+      "movie": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001
+    },
+    {
+      "quote": "Even the smallest person can change the course of the future.",
+      "character": "Galadriel",
+      "movie": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001
+    },
+    {
+      "quote": "A day may come when the courage of men fails, but it is not this day!",
+      "character": "Aragorn",
+      "movie": "The Lord of the Rings: The Return of the King",
+      "year": 2003
+    },
+    {
+      "quote": "Why do we fall, Bruce? So we can learn to pick ourselves up.",
+      "character": "Thomas Wayne",
+      "movie": "Batman Begins",
+      "year": 2005
+    },
+    {
+      "quote": "I was happy floating, staring at the stars.",
+      "character": "Starro the Conqueror",
+      "movie": "The Suicide Squad",
+      "year": 2021
+    },
+    {
+      "quote": "Some men just want to watch the world burn.",
+      "character": "Alfred Pennyworth",
+      "movie": "The Dark Knight",
+      "year": 2008
+    },
+    {
+      "quote": "With great power comes great responsibility.",
+      "character": "Uncle Ben",
+      "movie": "Spider-Man",
+      "year": 2002
+    },
+    {
+      "quote": "I'm not a hero. I'm a scientist!",
+      "character": "Bruce Banner / Hulk",
+      "movie": "The Avengers",
+      "year": 2012
+    },
+    {
+      "quote": "There was an idea... to bring together a group of remarkable people.",
+      "character": "Nick Fury",
+      "movie": "The Avengers",
+      "year": 2012
+    },
+    {
+      "quote": "What were you the god of again?",
+      "character": "Hela",
+      "movie": "Thor: Ragnarok",
+      "year": 2017
+    },
+    {
+      "quote": "Your world is one of the saddest, most pathetic excuses for existence I have ever seen.",
+      "character": "Malekith",
+      "movie": "Thor: The Dark World",
+      "year": 2013
+    },
+    {
+      "quote": "Dread it. Run from it. Destiny arrives all the same.",
+      "character": "Thanos",
+      "movie": "Avengers: Infinity War",
+      "year": 2018
+    },
+    {
+      "quote": "I am Iron Man.",
+      "character": "Tony Stark / Iron Man",
+      "movie": "Iron Man",
+      "year": 2008
+    },
+    {
+      "quote": "We have a Hulk.",
+      "character": "Tony Stark / Iron Man",
+      "movie": "The Avengers",
+      "year": 2012
+    },
+    {
+      "quote": "The greatest trick the devil ever pulled was convincing the world he didn’t exist.",
+      "character": "Verbal Kint / Keyser Söze",
+      "movie": "The Usual Suspects",
+      "year": 1995
+    },
+    {
+      "quote": "It's not who I am underneath, but what I do that defines me.",
+      "character": "Bruce Wayne / Batman",
+      "movie": "Batman Begins",
+      "year": 2005
+    },
+
+    {
+      "quote": "I'm Batman.",
+      "character": "Bruce Wayne / Batman",
+      "movie": "Batman",
+      "year": 1989
+    },
+    {
+      "quote": "Wakanda forever!",
+      "character": "T'Challa / Black Panther",
+      "movie": "Black Panther",
+      "year": 2018
+    },
+    {
+      "quote": "That's my secret, Captain. I'm always angry.",
+      "character": "Bruce Banner / Hulk",
+      "movie": "The Avengers",
+      "year": 2012
+    },
+    {
+      "quote": "I'm a man looking for a storm.",
+      "character": "Arthur Curry / Aquaman",
+      "movie": "Aquaman",
+      "year": 2018
+    },
+    {
+      "quote": "I am Groot.",
+      "character": "Groot",
+      "movie": "Guardians of the Galaxy",
+      "year": 2014
+    },
+    {
+      "quote": "They will join you in the sun, Kal. In time, they will accomplish wonders.",
+      "character": "Jor-El",
+      "movie": "Man of Steel",
+      "year": 2013
+    },
+    {
+      "quote": "A hero can be anyone, even a man doing something as simple and reassuring as putting a coat on a young boy's shoulders to let him know the world hadn't ended.",
+      "character": "Bruce Wayne / Batman",
+      "movie": "The Dark Knight Rises",
+      "year": 2012
+    },
+    {
+      "quote": "You know what they say about hope. Breeds eternal misery.",
+      "character": "Madame Hydra / Viper",
+      "movie": "The Wolverine",
+      "year": 2013
+    },
+    {
+      "quote": "I cherish peace with all my heart. I don't care how many men, women, and children I need to kill to get it.",
+      "character": "Peacemaker",
+      "movie": "The Suicide Squad",
+      "year": 2021
+    },
+    {
+      "quote": "You ever dance with the devil in the pale moonlight?",
+      "character": "The Joker",
+      "movie": "Batman",
+      "year": 1989
+    },
+    {
+      "quote": "With the whole world watching, the smartest thing for you to do would be to kill me. But if you do, well, you'll never know who was under that blanket.",
+      "character": "Mysterio",
+      "movie": "Spider-Man: Far From Home",
+      "year": 2019
+    },
+    {
+      "quote": "We all wear masks, Spider-Man. But which one is real? The one that hides your face, or the one that is your face?",
+      "character": "Green Goblin",
+      "movie": "Spider-Man: Into the Spider-Verse",
+      "year": 2018
+    },
+    {
+      "quote": "My father made the world a better place. I'm going to make it mine.",
+      "character": "Lex Luthor",
+      "movie": "Superman Returns",
+      "year": 2006
+    },
+    {
+      "quote": "Life doesn't give us purpose. We give life purpose.",
+      "character": "The Flash",
+      "movie": "Justice League",
+      "year": 2017
+    },
+    {
+      "quote": "Heroes are made by the path they choose, not the powers they are graced with.",
+      "character": "Ironman",
+      "movie": "Iron Man 2",
+      "year": 2010
+    },
+    {
+      "quote": "The hardest choices require the strongest wills.",
+      "character": "Thanos",
+      "movie": "Avengers: Infinity War",
+      "year": 2018
+    },
+    {
+      "quote": "If you cage the beast, the beast will get angry.",
+      "character": "Wolverine",
+      "movie": "X-Men: The Last Stand",
+      "year": 2006
+    },
+    {
+      "quote": "The very strength that keeps the darkness at bay.",
+      "character": "Tauriel",
+      "movie": "The Hobbit: The Desolation of Smaug",
+      "year": 2013
+    },
+    {
+      "quote": "Where we're going, we don't need roads.",
+      "character": "Dr. Emmett Brown",
+      "movie": "Back to the Future",
+      "year": 1985
+    },
+    {
+      "quote": "After all this time? Always.",
+      "character": "Severus Snape",
+      "movie": "Harry Potter and the Deathly Hallows: Part 2",
+      "year": 2011
+    },
+    {
+      "quote": "I'm not bad. I'm just drawn that way.",
+      "character": "Jessica Rabbit",
+      "movie": "Who Framed Roger Rabbit",
+      "year": 1988
+    },
+    {
+      "quote": "I'm Mary Poppins, y'all!",
+      "character": "Yondu",
+      "movie": "Guardians of the Galaxy Vol. 2",
+      "year": 2017
+    },
+    {
+      "quote": "You were the chosen one! It was said that you would destroy the Sith, not join them!",
+      "character": "Obi-Wan Kenobi",
+      "movie": "Star Wars: Episode III - Revenge of the Sith",
+      "year": 2005
+    },
+    {
+      "quote": "I am no Jedi.",
+      "character": "Ahsoka Tano",
+      "movie": "Star Wars: The Clone Wars",
+      "year": 2008
+    },
+    {
+      "quote": "You love me. Real or not real?",
+      "character": "Peeta Mellark",
+      "movie": "The Hunger Games: Mockingjay - Part 2",
+      "year": 2015
+    },
+    {
+      "quote": "If you look at the dark side, careful you must be. For the dark side looks back.",
+      "character": "Yoda",
+      "movie": "Star Wars: Episode III - Revenge of the Sith",
+      "year": 2005
+    },
+    {
+      "quote": "The world is changing. Who now has the strength to stand against the armies of Isengard and Mordor?",
+      "character": "Saruman",
+      "movie": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001
+    },
+    {
+      "quote": "I'm going to make him an offer he can't refuse.",
+      "character": "Vito Corleone",
+      "movie": "The Godfather",
+      "year": 1972
+    },
+    {
+      "quote": "What if this is as good as it gets?",
+      "character": "Melvin Udall",
+      "movie": "As Good as It Gets",
+      "year": 1997
+    },
+    {
+      "quote": "I used to think my life was a tragedy, but now I realize it's a comedy.",
+      "character": "Arthur Fleck / Joker",
+      "movie": "Joker",
+      "year": 2019
+    },
+    {
+      "quote": "Your task is not to seek for love, but merely to seek and find all the barriers within yourself that you have built against it.",
+      "character": "Ancient One",
+      "movie": "Doctor Strange",
+      "year": 2016
+    },
+    {
+      "quote": "Just because something works doesn't mean it can't be improved.",
+      "character": "Shuri",
+      "movie": "Black Panther",
+      "year": 2018
+    },
+    {
+      "quote": "If you're nothing without the suit, then you shouldn't have it.",
+      "character": "Tony Stark / Iron Man",
+      "movie": "Spider-Man: Homecoming",
+      "year": 2017
+    },
+    {
+      "quote": "No amount of money ever bought a second of time.",
+      "character": "Tony Stark / Iron Man",
+      "movie": "Avengers: Endgame",
+      "year": 2019
+    },
+    {
+      "quote": "I have been falling for thirty minutes!",
+      "character": "Loki",
+      "movie": "Thor: Ragnarok",
+      "year": 2017
+    },
+    {
+      "quote": "You didn't see that coming?",
+      "character": "Pietro Maximoff / Quicksilver",
+      "movie": "Avengers: Age of Ultron",
+      "year": 2015
+    },
+    {
+      "quote": "You know what kind of plan never fails? No plan. No plan at all.",
+      "character": "Namor",
+      "movie": "Black Panther: Wakanda Forever",
+      "year": 2022
+    },
+    {
+      "quote": "You never know. Maybe I'm not so bad after all.",
+      "character": "Deadpool",
+      "movie": "Deadpool",
+      "year": 2016
+    },
+    {
+      "quote": "We're all chimeras, mixed up with so many different genes. Unique creatures... unlike any other.",
+      "character": "Poison Ivy",
+      "movie": "Batman & Robin",
+      "year": 1997
+    },
+    {
+      "quote": "Humans. They're not the cowering wretches we were promised. They stand. They are unruly, and therefore cannot be ruled.",
+      "character": "Loki",
+      "movie": "The Avengers",
+      "year": 2012
+    }
+  ]
+}
