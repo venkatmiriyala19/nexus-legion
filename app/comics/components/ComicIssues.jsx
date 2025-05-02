@@ -24,7 +24,7 @@ export default function ComicIssues() {
       }
 
       let url = `${corsProxy}?url=${encodeURIComponent(
-        `https://comicvine.gamespot.com/api/issues/?api_key=${apiKey}&format=json&limit=20&offset=${
+        `https://comicvine.gamespot.com/api/issues/?api_key=${apiKey}&format=json&limit=5&offset=${
           (pageNumber - 1) * 5
         }`
       )}`;
@@ -64,6 +64,8 @@ export default function ComicIssues() {
         volume: `Volume ${issue.volume?.start_year || "?"}`,
         summary: issue.description || "No description available",
         isFavorite: false,
+        siteDetailUrl:
+          issue.site_detail_url || "https://comicvine.gamespot.com/",
       }));
 
       setComics(formattedComics);
@@ -134,14 +136,11 @@ export default function ComicIssues() {
         <h1 className="font-cinzel text-4xl font-bold mb-3">Comic Issues</h1>
         <hr className="mb-6" />
 
-        {isLoading && (
-          <div className="text-center py-8">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#7B61FF] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-            <p className="mt-2">Loading comics...</p>
+        {isLoading ? (
+          <div className="flex justify-center my-10">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-white"></div>
           </div>
-        )}
-
-        {error && (
+        ) : error ? (
           <div className="text-red-500 text-center py-4 px-4 bg-red-100/10 rounded-lg">
             <p className="font-bold">Error:</p>
             <p>{error}</p>
@@ -152,34 +151,32 @@ export default function ComicIssues() {
               Try Again
             </button>
           </div>
-        )}
-
-        {!isLoading && !error && comics.length === 0 && (
+        ) : comics.length === 0 ? (
           <div className="text-center py-8">
             No comics found. Try a different search term.
           </div>
-        )}
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-0">
+              {comics.map((comic) => (
+                <ComicCard
+                  key={comic.id}
+                  {...comic}
+                  onToggleFavorite={() => handleToggleFavorite(comic.id)}
+                  onViewDetails={() => handleViewDetails(comic.id)}
+                />
+              ))}
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
-          {comics.map((comic) => (
-            <ComicCard
-              key={comic.id}
-              {...comic}
-              onToggleFavorite={() => handleToggleFavorite(comic.id)}
-              onViewDetails={() => handleViewDetails(comic.id)}
-            />
-          ))}
-        </div>
-
-        {!isLoading && !error && comics.length > 0 && (
-          <div className="text-center mt-8">
-            <button
-              onClick={handleLoadMore}
-              className="px-6 py-2 bg-[#7B61FF] text-white rounded-lg hover:bg-[#a889ff] transition-colors"
-            >
-              Load More
-            </button>
-          </div>
+            <div className="text-center mt-8">
+              <button
+                onClick={handleLoadMore}
+                className="px-6 py-2 bg-[#7B61FF] text-white rounded-lg hover:bg-[#a889ff] transition-colors"
+              >
+                Load More
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>
