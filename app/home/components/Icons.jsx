@@ -39,12 +39,31 @@ export default function Icons() {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     const loadDefaultHeroes = async () => {
+      // List of popular superheroes for randomization
+      const superheroNames = [
+        "Superman",
+        "Spider-Man",
+        "Wonder Woman",
+        "Iron Man",
+        "Captain America",
+        "Thor",
+        "Hulk",
+        "Black Panther",
+        "Flash",
+        "Green Lantern",
+      ];
+
+      // Select a random superhero name
+      const randomHero =
+        superheroNames[Math.floor(Math.random() * superheroNames.length)];
+
       setIsLoading(true);
       try {
-        const res = await fetch("/api/searchHeroes?query=batman");
+        const res = await fetch(
+          `/api/searchHeroes?query=${encodeURIComponent(randomHero)}`
+        );
         const data = await res.json();
 
         if (data?.results) {
@@ -126,6 +145,7 @@ export default function Icons() {
                     alignment={hero.biography.alignment || "Neutral"}
                     stats={hero.powerstats}
                     image={hero.image.url || "/images/icon_placeholder.jpg"}
+                    hero={hero}
                   />
                 ))
               ) : (

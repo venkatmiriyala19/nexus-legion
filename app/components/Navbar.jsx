@@ -17,7 +17,7 @@ export default function Navbar() {
     },
     {
       icon: <Book size={18} />,
-      label: "Archive",
+      label: "Comics",
       path: "/comics",
       onClick: () => router.push("/comics"),
     },
