@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
 import CharacterCard from "./CharacterCard";
-
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 export default function Icons() {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 4;
+
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
 
     setIsLoading(true);
     setError(null);
+    setCurrentPage(1); // Reset to first page on new search
 
     try {
       const res = await fetch(
@@ -22,8 +27,10 @@ export default function Icons() {
 
       if (data?.results) {
         setResults(data.results);
+        setTotalPages(Math.ceil(data.results.length / itemsPerPage));
       } else {
         setResults([]);
+        setTotalPages(1);
       }
     } catch (err) {
       console.error("Search error:", err);
@@ -42,6 +49,7 @@ export default function Icons() {
 
         if (data?.results) {
           setResults(data.results);
+          setTotalPages(Math.ceil(data.results.length / itemsPerPage));
         }
       } catch (err) {
         console.error("Error loading default heroes:", err);
@@ -53,6 +61,23 @@ export default function Icons() {
 
     loadDefaultHeroes();
   }, []);
+
+  // Get current page items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = results.slice(indexOfFirstItem, indexOfLastItem);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div className="my-18">
@@ -89,25 +114,68 @@ export default function Icons() {
             {error}
           </div>
         ) : (
-          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-y-8 mx-[5rem] justify-items-center">
-            {results.length > 0 ? (
-              results.map((hero) => (
-                <CharacterCard
-                  key={hero.id}
-                  name={hero.name}
-                  fullName={hero.biography["full-name"] || "N/A"}
-                  publisher={hero.biography.publisher || "Unknown"}
-                  alignment={hero.biography.alignment || "Neutral"}
-                  stats={hero.powerstats}
-                  image={hero.image.url || "/images/icon_placeholder.jpg"}
-                />
-              ))
-            ) : (
-              <p className="text-white">
-                No characters found. Try a different search.
-              </p>
+          <>
+            <div className="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-y-8 mx-[5rem] justify-items-center">
+              {currentItems.length > 0 ? (
+                currentItems.map((hero) => (
+                  <CharacterCard
+                    key={hero.id}
+                    name={hero.name}
+                    fullName={hero.biography["full-name"] || "N/A"}
+                    publisher={hero.biography.publisher || "Unknown"}
+                    alignment={hero.biography.alignment || "Neutral"}
+                    stats={hero.powerstats}
+                    image={hero.image.url || "/images/icon_placeholder.jpg"}
+                  />
+                ))
+              ) : (
+                <p className="text-white col-span-2 text-center">
+                  No characters found. Try a different search.
+                </p>
+              )}
+            </div>
+
+            {/* Pagination */}
+            {results.length > 0 && (
+              <div className="flex justify-center items-center mt-8 mb-12 space-x-4">
+                <button
+                  onClick={goToPrevPage}
+                  disabled={currentPage === 1}
+                  className="flex items-center px-3 py-2 cursor-pointer bg-white/5 hover:bg-white/10 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ChevronLeft size={18} className="mr-1" />
+                  Prev
+                </button>
+
+                <div className="flex space-x-2">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-8 h-8 rounded-md ${
+                          currentPage === page
+                            ? "bg-[#7B61FF] text-white"
+                            : "bg-white/5 hover:bg-white/10"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    )
+                  )}
+                </div>
+
+                <button
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                  className="flex cursor-pointer items-center px-3 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next
+                  <ChevronRight size={18} className="ml-1" />
+                </button>
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
