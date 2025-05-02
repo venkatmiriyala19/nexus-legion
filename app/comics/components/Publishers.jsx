@@ -23,10 +23,19 @@ export default function Publishers() {
         throw new Error("ComicVine API key is not configured");
       }
 
+      // Total known publisher count (adjust if you know a more accurate number)
+      const MAX_PUBLISHERS = 1000;
+      const limit = 3;
+
+      // If no search term and first page, randomize the offset
+      let offset = (pageNumber - 1) * limit;
+      if (!search && pageNumber === 1) {
+        const maxOffset = MAX_PUBLISHERS - limit;
+        offset = Math.floor(Math.random() * maxOffset);
+      }
+
       let url = `${corsProxy}?url=${encodeURIComponent(
-        `https://comicvine.gamespot.com/api/publishers/?api_key=${apiKey}&format=json&limit=3&offset=${
-          (pageNumber - 1) * 9
-        }`
+        `https://comicvine.gamespot.com/api/publishers/?api_key=${apiKey}&format=json&limit=${limit}&offset=${offset}`
       )}`;
 
       if (search) {
@@ -41,15 +50,12 @@ export default function Publishers() {
         throw new Error(`Server responded with status: ${response.status}`);
       }
 
-      // Force JSON parsing
       const data = await response.json();
 
-      // Check if the API returned an error message
       if (data.error && data.error !== "OK") {
         throw new Error(`API Error: ${data.error}`);
       }
 
-      // Check if we have results
       if (!data.results || !Array.isArray(data.results)) {
         throw new Error("Invalid response format: Missing results array");
       }

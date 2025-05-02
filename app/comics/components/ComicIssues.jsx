@@ -13,6 +13,11 @@ export default function ComicIssues() {
   const fetchComics = async (search = "", pageNumber = 1) => {
     setIsLoading(true);
     setError(null);
+    const randomOffset = Math.floor(Math.random() * 1000); // Adjust max based on total results
+    let offset = (pageNumber - 1) * 5;
+    if (search === "" && pageNumber === 1) {
+      offset = randomOffset;
+    }
 
     try {
       const corsProxy = "/api/proxy";
@@ -23,8 +28,8 @@ export default function ComicIssues() {
       }
 
       let url = `${corsProxy}?url=${encodeURIComponent(
-        `https://comicvine.gamespot.com/api/issues/?api_key=${apiKey}&format=json&limit=5&offset=${
-          (pageNumber - 1) * 5
+        `https://comicvine.gamespot.com/api/issues/?api_key=${apiKey}&format=json&limit=5&offset=${offset}
+
         }`
       )}`;
 
@@ -59,7 +64,7 @@ export default function ComicIssues() {
         title: issue.volume?.name || "Unknown Title",
         issueNumber: issue.issue_number || "N/A",
         coverImage: issue.image?.medium_url || "/placeholder-comic.jpg",
-        issueDate: issue.date_added || "Unknown Date",
+        issueDate: issue.cover_date || "Unknown Date",
         volume: `Volume ${issue.volume?.start_year || "?"}`,
         summary: issue.description || "No description available",
         isFavorite: false,
