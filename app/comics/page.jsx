@@ -2,6 +2,7 @@
 import SplitText from "@/components/ui/SplitText/SplitText";
 import Hero from "./components/Hero";
 import ComicIssues from "./components/ComicIssues";
+import Publishers from "./components/Publishers";
 export default function page() {
   return (
     <div className="mt-10">
@@ -19,6 +20,7 @@ export default function page() {
       </div>
       <Hero />
       <ComicIssues />
+      <Publishers />
     </div>
   );
 }
