@@ -1,12 +1,12 @@
 import { Heart } from "lucide-react";
-export default function Movie({ image, title, year }) {
+export default function Movie({ image, title, year, movie }) {
   return (
-    <div className="max-w-6xl mx-auto border-white border-1 rounded-md flex items-center p-4 justify-between">
+    <div className="min-w-6xl mx-auto border-white border-1 rounded-md flex items-center p-4 justify-between">
       <div className="gap-4 flex items-center">
         <img
           src={image || "/images/StarWars.jpg"}
           alt={title}
-          className="w-32 h-full object-cover rounded-lg"
+          className="w-32 h-16 object-cover rounded-lg"
         />
 
         <h2 className="text-xl font-regular bg-gradient-to-r from-white to-[#3E065F] bg-clip-text text-transparent">
