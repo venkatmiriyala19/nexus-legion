@@ -12,6 +12,7 @@ const ComicCard = ({
   isFavorite = false,
   onToggleFavorite,
   onViewDetails,
+  image,
 }) => {
   // Format the date properly
   const formatDate = (dateString) => {
@@ -37,7 +38,7 @@ const ComicCard = ({
       <div className="w-1/3 min-w-64 relative p-6">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-30"></div>
         <img
-          src={"/images/StarWars.jpg"}
+          src={coverImage || "/images/StarWars.jpg"}
           alt={`${title} #${issueNumber} Cover`}
           className="w-full h-full object-cover rounded-2xl"
         />
