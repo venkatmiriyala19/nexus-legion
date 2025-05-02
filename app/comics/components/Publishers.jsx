@@ -100,34 +100,31 @@ export default function Publishers() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4">
+    <div className="max-w-6xl mx-auto px-4 my-4">
       <h1 className="font-cinzel text-4xl font-bold mb-3">Publishers</h1>
       <hr className="mb-6" />
 
-      {/* Search bar */}
-      <div className="mb-8 flex items-center gap-2">
-        <div className="relative flex-1">
+      <div className="mb-8 flex justify-center">
+        <div className="flex h-12 items-center w-full max-w-md px-4 py-2 bg-white/10 border border-white/20 rounded-full backdrop-blur-md shadow-md">
+          <Search size={18} className="text-white/70 mr-4" />
+
           <input
             type="text"
             placeholder="Search publishers..."
-            className="w-full px-4 py-2 border rounded-lg pl-10"
+            className="bg-transparent text-white placeholder-white/70 focus:outline-none w-full"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          <Search
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            size={18}
-          />
-        </div>
-        <button
-          onClick={handleSearch}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Search
-        </button>
-      </div>
 
+          <button
+            onClick={handleSearch}
+            className="ml-2 px-3 py-1 bg-[#7B61FF] cursor-pointer text-white rounded-full text-sm hover:bg-[#a889ff] transition-colors"
+          >
+            Search
+          </button>
+        </div>
+      </div>
       {/* Error message */}
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -163,7 +160,7 @@ export default function Publishers() {
         <div className="mt-8 text-center">
           <button
             onClick={handleLoadMore}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-lg transition"
+            className="px-6 py-2 bg-[#7B61FF] text-white rounded-lg hover:bg-[#a889ff] transition-colors"
           >
             Load More
           </button>

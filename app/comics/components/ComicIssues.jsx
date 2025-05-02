@@ -10,7 +10,6 @@ export default function ComicIssues() {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
 
-  // Fetch comics from ComicVine API
   const fetchComics = async (search = "", pageNumber = 1) => {
     setIsLoading(true);
     setError(null);
@@ -77,18 +76,15 @@ export default function ComicIssues() {
     }
   };
 
-  // Load comics on initial render
   useEffect(() => {
     fetchComics();
   }, []);
 
-  // Handler for searching
   const handleSearch = () => {
     setPage(1);
     fetchComics(searchTerm, 1);
   };
 
-  // Handler for toggling favorites
   const handleToggleFavorite = (id) => {
     setComics(
       comics.map((comic) =>
@@ -97,14 +93,10 @@ export default function ComicIssues() {
     );
   };
 
-  // Handler for viewing details
   const handleViewDetails = (id) => {
     console.log(`View details for comic ${id}`);
-    // In a real app, you'd use Next.js router to navigate:
-    // router.push(`/comics/${id}`);
   };
 
-  // Handler for pagination
   const handleLoadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
