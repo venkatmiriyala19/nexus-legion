@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import SplitText from "@/components/ui/SplitText/SplitText";
 import Quote from "./components/Quote";
+import { motion } from "framer-motion";
 
 export default function Page() {
   const [quote, setQuote] = useState(null);
@@ -48,11 +49,18 @@ export default function Page() {
       </div>
 
       {/* Display the first (static) quote */}
-      <Quote
-        quote="You Either Die a Hero or Live Long Enough to See Yourself Become the Villain"
-        movie="The Dark Knight (2008)"
-        author="Harvey Dent"
-      />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <Quote
+          quote="You Either Die a Hero or Live Long Enough to See Yourself Become the Villain"
+          movie="The Dark Knight (2008)"
+          author="Harvey Dent"
+        />
+      </motion.div>
 
       {/* Random Quotes Section */}
       <div className="max-w-6xl mx-auto">
