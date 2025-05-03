@@ -5,8 +5,9 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import SuperheroLoader from "./components/SuperheroLoader";
 import Navbar from "./components/Navbar";
+import { setupBatchFavorites } from "@/utils/sendBatchFavorites";
 
-// Minimum time to show the loader in milliseconds (3 seconds)
+// Minimum time to show the loader in milliseconds (0 seconds as per your code)
 const MIN_LOADER_TIME = 0;
 
 export default function ClientWrapper({ children }) {
@@ -22,7 +23,7 @@ export default function ClientWrapper({ children }) {
   }, []);
 
   useEffect(() => {
-    if (!isLoaded) return; // wait until Clerk is ready
+    if (!isLoaded) return; // Wait until Clerk is ready
 
     // Calculate how long the loader has been shown
     const loaderDisplayTime = Date.now() - loaderStartTime;
@@ -57,6 +58,13 @@ export default function ClientWrapper({ children }) {
     }
   }, [isSignedIn, pathname, router, showLoader]);
 
+  // Initialize batch favorites handler
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn) return; // Wait for Clerk and signed-in state
+
+    setupBatchFavorites();
+  }, [isLoaded, isSignedIn]);
+
   // Show loader if Clerk is still loading OR if minimum display time hasn't elapsed
   if (!isLoaded || showLoader) {
     return <SuperheroLoader />;
@@ -74,7 +82,6 @@ export default function ClientWrapper({ children }) {
         {children}
       </SignedOut>
       <SignedIn>
-        {" "}
         <Navbar />
         <div className="mt-8">{children}</div>
       </SignedIn>

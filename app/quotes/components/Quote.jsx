@@ -1,27 +1,35 @@
 import { Heart } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaQuoteLeft } from "react-icons/fa";
+
 export default function Quote({ quote, author, movie, heart = false }) {
   const [favorited, setFavorited] = useState(false);
 
-  const handleFavorite = async () => {
+  const handleFavorite = () => {
     const updated = !favorited;
-    setFavorited(updated); // optimistic UI update
+    setFavorited(updated); // Optimistic UI update
 
+    // Create action object
     const action = updated ? "add" : "remove";
     const item = { quote, movie, character: author };
 
-    try {
-      await fetch("/api/favorites", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ section: "quotes", item, action }),
-      });
-    } catch (err) {
-      console.error("Failed to update favorite", err);
-      setFavorited(!updated); // rollback if failed
-    }
+    // Load existing queue from localStorage
+    const queuedActions = JSON.parse(
+      localStorage.getItem("favoriteActions") || "[]"
+    );
+
+    // Add new action to queue
+    queuedActions.push({ section: "quotes", item, action });
+
+    // Save updated queue to localStorage
+    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
   };
+
+  // Optional: Check if the quote is already favorited (e.g., from server or localStorage)
+  useEffect(() => {
+    // You can add logic to check if the quote is already favorited
+    // For simplicity, we assume it starts as not favorited
+  }, [quote, author, movie]);
 
   return (
     <div className="max-w-6xl mx-auto my-20 px-4">
