@@ -2,7 +2,26 @@ import { Heart } from "lucide-react";
 import React, { useState } from "react";
 import { FaQuoteLeft } from "react-icons/fa";
 export default function Quote({ quote, author, movie, heart = false }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [favorited, setFavorited] = useState(false);
+
+  const handleFavorite = async () => {
+    const updated = !favorited;
+    setFavorited(updated); // optimistic UI update
+
+    const action = updated ? "add" : "remove";
+    const item = { quote, movie, character: author };
+
+    try {
+      await fetch("/api/favorites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ section: "quotes", item, action }),
+      });
+    } catch (err) {
+      console.error("Failed to update favorite", err);
+      setFavorited(!updated); // rollback if failed
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto my-20 px-4">
@@ -19,9 +38,9 @@ export default function Quote({ quote, author, movie, heart = false }) {
               <Heart
                 size={30}
                 className={`cursor-pointer absolute -right-10 ml-2 mt-2 ${
-                  isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
+                  favorited ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
                 }`}
-                onClick={() => setIsFavorite(!isFavorite)}
+                onClick={handleFavorite}
               />
             )}
           </div>

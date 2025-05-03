@@ -6,29 +6,26 @@ import { motion } from "framer-motion";
 
 export default function Page() {
   const [quote, setQuote] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state to control spinner
+  const [loading, setLoading] = useState(false);
 
-  // Function to fetch random quote
   const fetchRandomQuote = async () => {
-    setLoading(true); // Start loading spinner
+    setLoading(true);
     try {
-      const response = await fetch("/assets/quotes.json"); // Path to your quotes.json
+      const response = await fetch("/assets/quotes.json");
       const data = await response.json();
       const randomQuote =
         data.quotes[Math.floor(Math.random() * data.quotes.length)];
 
-      // Simulate a delay for UX purposes
       setTimeout(() => {
         setQuote(randomQuote);
-        setLoading(false); // Stop loading spinner after the delay
-      }, 1000); // 1-second delay (adjust as needed)
+        setLoading(false);
+      }, 1000);
     } catch (error) {
       console.error("Error fetching quotes:", error);
-      setLoading(false); // Stop loading spinner in case of error
+      setLoading(false);
     }
   };
 
-  // Initial random quote fetch when page loads
   useEffect(() => {
     fetchRandomQuote();
   }, []);
