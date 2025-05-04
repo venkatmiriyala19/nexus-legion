@@ -1,8 +1,14 @@
 "use client";
 import BlurText from "@/components/ui/BlurText/BlurText";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter();
+
+  const handleAuthRedirect = () => {
+    router.push("/authentication");
+  };
+
   return (
     <div className="flex items-center justify-center">
       <div
@@ -20,7 +26,10 @@ export default function Hero() {
           <div className="font-spectral text-lg md:text-xl leading-relaxed max-w-4xl mt-1">
             Whether you stand with the mighty or root for the underdogs, every
             hero's journey starts here.{" "}
-            <span className="px-2 py-1 cursor-pointer font-bold bg-white text-black rounded-md">
+            <span
+              className="px-2 py-1 cursor-pointer font-bold bg-white text-black rounded-md hover:bg-gray-200 transition-colors"
+              onClick={handleAuthRedirect}
+            >
               Join the Nexus
             </span>{" "}
             and explore the heroes who inspire generations.

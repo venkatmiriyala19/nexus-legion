@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser, SignOutButton } from "@clerk/nextjs";
+import { Zap } from "lucide-react";
 
 export default function Hello() {
   const { user, isLoaded } = useUser();
@@ -12,9 +13,12 @@ export default function Hello() {
       {/* Logout button positioned absolutely */}
       <div className="absolute top-6 right-6">
         <SignOutButton>
-          <button className="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 px-4 rounded transition duration-300">
-            Logout
-          </button>
+          <SignOutButton>
+            <button className="bg-purple-900 cursor-pointer hover:bg-purple-800 text-white font-bold py-2 px-6 rounded transform hover:scale-105 transition duration-300 border-b-4 border-purple-950 hover:border-purple-800 shadow-lg hover:shadow-purple-500/50 flex items-center gap-2">
+              <Zap className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
+          </SignOutButton>
         </SignOutButton>
       </div>
 

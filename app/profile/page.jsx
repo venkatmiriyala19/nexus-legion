@@ -85,7 +85,7 @@ export default function ProfilePage() {
       <Hello />
       {quotes.length > 0 && currentQuote && (
         <div className="mt-6">
-          <h1 className="font-cinzel text-4xl font-bold mb-3">
+          <h1 className="font-cinzel text-3xl font-bold mb-3">
             Favourite Quotes
           </h1>
           <hr className="mb-8" />
@@ -114,7 +114,7 @@ export default function ProfilePage() {
         </div>
       )}
       {/* ICONS SECTION */}
-      <h1 className="font-cinzel text-4xl font-bold mb-3">Favourite Icons</h1>
+      <h1 className="font-cinzel text-3xl font-bold mb-3">Favourite Icons</h1>
       <hr className="mb-8" />
       {icons.length === 0 ? (
         <p className="text-gray-500">No favorite characters added yet.</p>
@@ -142,7 +142,7 @@ export default function ProfilePage() {
         </>
       )}
       {/* MOVIES SECTION */}
-      <h1 className="font-cinzel text-4xl font-bold mb-3 mt-12">
+      <h1 className="font-cinzel text-3xl font-bold mb-3 mt-12">
         Favourite Movies
       </h1>
       <hr className="mb-8" />
@@ -177,7 +177,7 @@ export default function ProfilePage() {
         </>
       )}
       {/* COMICS SECTION */}
-      <h1 className="font-cinzel text-4xl font-bold mb-3 mt-12">
+      <h1 className="font-cinzel text-3xl font-bold mb-3 mt-12">
         Favourite Comics
       </h1>
       <hr className="mb-8" />

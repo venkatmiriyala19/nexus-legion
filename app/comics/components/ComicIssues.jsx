@@ -130,7 +130,7 @@ export default function ComicIssues() {
         </div>
       </div>
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-cinzel text-4xl font-bold mb-3">Comic Issues</h1>
+        <h1 className="font-cinzel text-3xl font-bold mb-3">Comic Issues</h1>
         <hr className="mb-6" />
 
         {isLoading ? (

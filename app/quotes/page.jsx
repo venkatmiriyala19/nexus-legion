@@ -62,7 +62,7 @@ export default function Page() {
       {/* Random Quotes Section */}
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-2">
-          <h1 className="font-cinzel text-4xl font-bold mb-3">Random Quotes</h1>
+          <h1 className="font-cinzel text-3xl font-bold mb-3">Random Quotes</h1>
           <button
             className="bg-[#3E065F] cursor-pointer text-white uppercase text-lg font-medium px-4 py-[6px] rounded-lg hover:bg-[#fff] hover:text-black transition-colors"
             onClick={fetchRandomQuote}

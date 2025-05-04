@@ -121,7 +121,7 @@ export default function Icons() {
       </div>
 
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-cinzel text-4xl font-bold mb-3">Icons</h1>
+        <h1 className="font-cinzel text-3xl font-bold mb-3">Icons</h1>
         <hr />
 
         {isLoading ? (
