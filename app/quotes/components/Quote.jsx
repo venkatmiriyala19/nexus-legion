@@ -1,35 +1,21 @@
 import { Heart } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FaQuoteLeft } from "react-icons/fa";
+import { useFavorites } from "@/context/FavoritesContext";
 
 export default function Quote({ quote, author, movie, heart = false }) {
-  const [favorited, setFavorited] = useState(false);
+  const { favorites, queueFavoriteAction } = useFavorites();
+
+  // Check if the quote is favorited
+  const isFavorited = favorites.quotes.some(
+    (q) => q.quote === quote && q.movie === movie && q.character === author
+  );
 
   const handleFavorite = () => {
-    const updated = !favorited;
-    setFavorited(updated); // Optimistic UI update
-
-    // Create action object
-    const action = updated ? "add" : "remove";
+    const action = isFavorited ? "remove" : "add";
     const item = { quote, movie, character: author };
-
-    // Load existing queue from localStorage
-    const queuedActions = JSON.parse(
-      localStorage.getItem("favoriteActions") || "[]"
-    );
-
-    // Add new action to queue
-    queuedActions.push({ section: "quotes", item, action });
-
-    // Save updated queue to localStorage
-    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
+    queueFavoriteAction(item, "quotes", action);
   };
-
-  // Optional: Check if the quote is already favorited (e.g., from server or localStorage)
-  useEffect(() => {
-    // You can add logic to check if the quote is already favorited
-    // For simplicity, we assume it starts as not favorited
-  }, [quote, author, movie]);
 
   return (
     <div className="max-w-6xl mx-auto my-20 px-4">
@@ -46,7 +32,7 @@ export default function Quote({ quote, author, movie, heart = false }) {
               <Heart
                 size={30}
                 className={`cursor-pointer absolute -right-10 ml-2 mt-2 ${
-                  favorited ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
+                  isFavorited ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
                 }`}
                 onClick={handleFavorite}
               />

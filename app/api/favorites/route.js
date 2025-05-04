@@ -59,10 +59,13 @@ export async function GET(req) {
     // Find the user's favorites document
     const favoriteDoc = await Favorite.findOne({ userId });
 
-    // Extract movies from the favorites document, or return an empty array
-    const movies = favoriteDoc?.favorites?.movies || [];
+    // Extract movies and quotes, or return empty arrays
+    const favorites = {
+      movies: favoriteDoc?.favorites?.movies || [],
+      quotes: favoriteDoc?.favorites?.quotes || [],
+    };
 
-    return new Response(JSON.stringify(movies), {
+    return new Response(JSON.stringify(favorites), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

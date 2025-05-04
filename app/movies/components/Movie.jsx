@@ -8,7 +8,7 @@ import { useFavorites } from "@/context/FavoritesContext";
 export default function Movie({ image, title, year, movie }) {
   const { favorites, queueFavoriteAction } = useFavorites();
   const [showModal, setShowModal] = useState(false);
-  const isFavorite = favorites.some((fav) => fav.id === movie.id);
+  const isFavorite = favorites.movies.some((fav) => fav.id === movie.id);
 
   const handleFavoriteClick = () => {
     queueFavoriteAction(movie, isFavorite ? "remove" : "add");

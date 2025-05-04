@@ -1,4 +1,3 @@
-// FavoritesContext.js
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
@@ -8,9 +7,8 @@ const FavoritesContext = createContext();
 
 export function FavoritesProvider({ children }) {
   const { isSignedIn, isLoaded } = useAuth();
-  const [favorites, setFavorites] = useState([]); // Store favorite movies
+  const [favorites, setFavorites] = useState({ movies: [], quotes: [] });
 
-  // Fetch favorites from backend
   useEffect(() => {
     if (!isLoaded || !isSignedIn) return;
 
@@ -22,7 +20,6 @@ export function FavoritesProvider({ children }) {
         });
         if (response.ok) {
           const data = await response.json();
-          // Assuming data is an array of favorite movies
           synchronizeFavorites(data);
         } else {
           console.error("Failed to fetch favorites", response.status);
@@ -35,62 +32,117 @@ export function FavoritesProvider({ children }) {
     fetchFavorites();
   }, [isLoaded, isSignedIn]);
 
-  // Synchronize fetched favorites with localStorage queue
   const synchronizeFavorites = (fetchedFavorites) => {
     const queuedActions = JSON.parse(
       localStorage.getItem("favoriteActions") || "[]"
     );
 
-    // Create a map of movie IDs to their favorite status
-    const favoriteMap = new Map();
-    fetchedFavorites.forEach((movie) => {
-      favoriteMap.set(movie.id, true);
+    // Synchronize movies
+    const movieMap = new Map();
+    fetchedFavorites.movies.forEach((movie) => {
+      movieMap.set(movie.id, true);
     });
 
-    // Apply queued actions to override fetched favorites
+    // Synchronize quotes
+    const quoteMap = new Map();
+    fetchedFavorites.quotes.forEach((quote) => {
+      // Use a unique identifier for quotes (e.g., quote text + movie + character)
+      const quoteKey = `${quote.quote}|${quote.movie}|${quote.character}`;
+      quoteMap.set(quoteKey, true);
+    });
+
+    // Apply queued actions
     queuedActions.forEach((action) => {
       if (action.section === "movies") {
         if (action.action === "add") {
-          favoriteMap.set(action.item.id, true);
+          movieMap.set(action.item.id, true);
         } else if (action.action === "remove") {
-          favoriteMap.delete(action.item.id);
+          movieMap.delete(action.item.id);
+        }
+      } else if (action.section === "quotes") {
+        const quoteKey = `${action.item.quote}|${action.item.movie}|${action.item.character}`;
+        if (action.action === "add") {
+          quoteMap.set(quoteKey, true);
+        } else if (action.action === "remove") {
+          quoteMap.delete(quoteKey);
         }
       }
     });
 
-    // Convert map back to array of favorite movies
-    const updatedFavorites = [];
-    favoriteMap.forEach((_, movieId) => {
-      // Find the movie object from fetchedFavorites or queuedActions
+    // Convert maps back to arrays
+    const updatedMovies = [];
+    movieMap.forEach((_, movieId) => {
       const movie =
-        fetchedFavorites.find((m) => m.id === movieId) ||
+        fetchedFavorites.movies.find((m) => m.id === movieId) ||
         queuedActions.find(
-          (action) => action.item.id === movieId && action.action === "add"
+          (action) =>
+            action.section === "movies" &&
+            action.item.id === movieId &&
+            action.action === "add"
         )?.item;
-      if (movie) updatedFavorites.push(movie);
+      if (movie) updatedMovies.push(movie);
     });
 
-    setFavorites(updatedFavorites);
+    const updatedQuotes = [];
+    quoteMap.forEach((_, quoteKey) => {
+      const [quoteText, movie, character] = quoteKey.split("|");
+      const quote =
+        fetchedFavorites.quotes.find(
+          (q) =>
+            q.quote === quoteText &&
+            q.movie === movie &&
+            q.character === character
+        ) ||
+        queuedActions.find(
+          (action) =>
+            action.section === "quotes" &&
+            action.item.quote === quoteText &&
+            action.item.movie === movie &&
+            action.item.character === character &&
+            action.action === "add"
+        )?.item;
+      if (quote) updatedQuotes.push(quote);
+    });
+
+    setFavorites({ movies: updatedMovies, quotes: updatedQuotes });
   };
 
-  // Add or remove favorite (used by Movie component)
-  const queueFavoriteAction = (movie, action) => {
+  const queueFavoriteAction = (item, section, action) => {
     const queuedActions = JSON.parse(
       localStorage.getItem("favoriteActions") || "[]"
     );
-    const newAction = {
-      section: "movies",
-      item: movie,
-      action,
-    };
+    const newAction = { section, item, action };
     queuedActions.push(newAction);
     localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
 
-    // Update local favorites state optimistically
-    if (action === "add") {
-      setFavorites((prev) => [...prev, movie]);
-    } else {
-      setFavorites((prev) => prev.filter((fav) => fav.id !== movie.id));
+    // Optimistic update
+    if (section === "movies") {
+      if (action === "add") {
+        setFavorites((prev) => ({
+          ...prev,
+          movies: [...prev.movies, item],
+        }));
+      } else {
+        setFavorites((prev) => ({
+          ...prev,
+          movies: prev.movies.filter((fav) => fav.id !== item.id),
+        }));
+      }
+    } else if (section === "quotes") {
+      const quoteKey = `${item.quote}|${item.movie}|${item.character}`;
+      if (action === "add") {
+        setFavorites((prev) => ({
+          ...prev,
+          quotes: [...prev.quotes, item],
+        }));
+      } else {
+        setFavorites((prev) => ({
+          ...prev,
+          quotes: prev.quotes.filter(
+            (q) => `${q.quote}|${q.movie}|${q.character}` !== quoteKey
+          ),
+        }));
+      }
     }
   };
 
