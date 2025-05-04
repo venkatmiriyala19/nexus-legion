@@ -1,5 +1,5 @@
 import React from "react";
-import { Heart, Info, ChevronRight, Calendar } from "lucide-react";
+import { Heart, ChevronRight } from "lucide-react";
 
 const ComicCard = ({
   id,
@@ -9,10 +9,9 @@ const ComicCard = ({
   issueDate,
   volume,
   summary,
+  siteDetailUrl,
   isFavorite = false,
   onToggleFavorite,
-  onViewDetails,
-  siteDetailUrl,
 }) => {
   // Format the date properly
   const formatDate = (dateString) => {
@@ -24,6 +23,39 @@ const ComicCard = ({
         year: "numeric",
       })
       .replace(/\//g, "/");
+  };
+
+  // Comic object to store in favorites
+  const comicData = {
+    id,
+    title,
+    issueNumber,
+    coverImage,
+    issueDate,
+    volume,
+    summary,
+    siteDetailUrl,
+  };
+
+  // Function to queue favorite actions
+  const queueFavoriteAction = (action) => {
+    const queuedActions = JSON.parse(
+      localStorage.getItem("favoriteActions") || "[]"
+    );
+    const newAction = {
+      section: "comics",
+      item: comicData, // Store the entire comic object
+      action,
+    };
+    queuedActions.push(newAction);
+    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
+  };
+
+  // Handle favorite button click
+  const handleFavoriteClick = () => {
+    const newFavoriteState = !isFavorite;
+    onToggleFavorite(newFavoriteState);
+    queueFavoriteAction(newFavoriteState ? "add" : "remove");
   };
 
   return (
@@ -47,7 +79,7 @@ const ComicCard = ({
 
         {/* Subtitle with issue */}
         <div className="flex items-center gap-2 mb-4">
-          <h2 className="text-xl  font-bold bg-gradient-to-r  from-white to-[#3E065F] bg-clip-text text-transparent">
+          <h2 className="text-xl font-bold bg-gradient-to-r from-white to-[#3E065F] bg-clip-text text-transparent">
             {title} #{issueNumber}
           </h2>
           <span className="bg-white text-black text-[8px] px-2 py-1 rounded-xl">
@@ -57,7 +89,7 @@ const ComicCard = ({
 
         {/* Date */}
         <div className="flex items-center gap-2 mb-6">
-          <span className="  font-bold bg-gradient-to-r  from-white to-[#3E065F] bg-clip-text text-transparent">
+          <span className="font-bold bg-gradient-to-r from-white to-[#3E065F] bg-clip-text text-transparent">
             {formatDate(issueDate)}
           </span>
           <span className="bg-white text-[8px] px-2 py-1 rounded-xl text-black ml-2">
@@ -76,15 +108,12 @@ const ComicCard = ({
               dangerouslySetInnerHTML={{ __html: summary }}
             />
           </div>
-
-          {/* Buttons */}
         </div>
 
-        {/* Favorite Button */}
         {/* Top-right Buttons */}
         <div className="absolute top-6 right-6 flex items-center gap-3">
           <button
-            onClick={onToggleFavorite}
+            onClick={handleFavoriteClick}
             className="cursor-pointer"
             aria-label="Toggle Favorite"
           >
