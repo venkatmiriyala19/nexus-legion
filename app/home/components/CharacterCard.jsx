@@ -138,7 +138,7 @@ export default function CharacterCard({
                   Alignment:
                 </span>
                 <span className="text-white font-medium text-lg">
-                  {alignment.charAt(0).toUpperCase() + alignment.slice(1)}
+                  {alignment?.charAt(0).toUpperCase() + alignment?.slice(1)}
                 </span>
               </div>
               <div className="flex gap-3">
