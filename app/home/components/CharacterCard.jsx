@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import CharacterModal from "./CharacterModal";
+import { useFavorites } from "@/context/FavoritesContext";
 
 export default function CharacterCard({
   name,
@@ -20,7 +21,8 @@ export default function CharacterCard({
   stats,
   hero,
 }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { favorites, queueFavoriteAction } = useFavorites();
+  const isFavorite = favorites.icons.some((icon) => icon.id === hero.id);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Set default stat values if stats are not provided
@@ -45,25 +47,8 @@ export default function CharacterCard({
     connections: hero?.connections,
   };
 
-  // Function to queue favorite actions
-  const queueFavoriteAction = (action) => {
-    const queuedActions = JSON.parse(
-      localStorage.getItem("favoriteActions") || "[]"
-    );
-    const newAction = {
-      section: "icons",
-      item: hero, // Store the entire hero object
-      action,
-    };
-    queuedActions.push(newAction);
-    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
-  };
-
-  // Handle favorite button click
   const handleFavoriteClick = () => {
-    const newFavoriteState = !isFavorite;
-    setIsFavorite(newFavoriteState);
-    queueFavoriteAction(newFavoriteState ? "add" : "remove");
+    queueFavoriteAction(hero, "icons", isFavorite ? "remove" : "add");
   };
 
   return (
@@ -158,14 +143,16 @@ export default function CharacterCard({
               </div>
               <div className="flex gap-3">
                 <button
-                  className="text-white cursor-pointer"
                   onClick={handleFavoriteClick}
+                  className="cursor-pointer"
+                  aria-label="Toggle Favorite"
                 >
-                  {isFavorite ? (
-                    <Heart className="w-6 h-6 text-[#fff] fill-[#fff]" />
-                  ) : (
-                    <Heart className="w-6 h-6" />
-                  )}
+                  <Heart
+                    size={24}
+                    className={
+                      isFavorite ? "fill-white text-white" : "text-gray-400"
+                    }
+                  />
                 </button>
                 <button
                   className="text-white cursor-pointer"

@@ -7,7 +7,12 @@ const FavoritesContext = createContext();
 
 export function FavoritesProvider({ children }) {
   const { isSignedIn, isLoaded } = useAuth();
-  const [favorites, setFavorites] = useState({ movies: [], quotes: [] });
+  const [favorites, setFavorites] = useState({
+    movies: [],
+    quotes: [],
+    icons: [],
+    comics: [],
+  });
 
   useEffect(() => {
     if (!isLoaded || !isSignedIn) return;
@@ -46,9 +51,20 @@ export function FavoritesProvider({ children }) {
     // Synchronize quotes
     const quoteMap = new Map();
     fetchedFavorites.quotes.forEach((quote) => {
-      // Use a unique identifier for quotes (e.g., quote text + movie + character)
       const quoteKey = `${quote.quote}|${quote.movie}|${quote.character}`;
       quoteMap.set(quoteKey, true);
+    });
+
+    // Synchronize icons
+    const iconMap = new Map();
+    fetchedFavorites.icons.forEach((icon) => {
+      iconMap.set(icon.id, true);
+    });
+
+    // Synchronize comics
+    const comicMap = new Map();
+    fetchedFavorites.comics.forEach((comic) => {
+      comicMap.set(comic.id, true);
     });
 
     // Apply queued actions
@@ -65,6 +81,18 @@ export function FavoritesProvider({ children }) {
           quoteMap.set(quoteKey, true);
         } else if (action.action === "remove") {
           quoteMap.delete(quoteKey);
+        }
+      } else if (action.section === "icons") {
+        if (action.action === "add") {
+          iconMap.set(action.item.id, true);
+        } else if (action.action === "remove") {
+          iconMap.delete(action.item.id);
+        }
+      } else if (action.section === "comics") {
+        if (action.action === "add") {
+          comicMap.set(action.item.id, true);
+        } else if (action.action === "remove") {
+          comicMap.delete(action.item.id);
         }
       }
     });
@@ -104,7 +132,38 @@ export function FavoritesProvider({ children }) {
       if (quote) updatedQuotes.push(quote);
     });
 
-    setFavorites({ movies: updatedMovies, quotes: updatedQuotes });
+    const updatedIcons = [];
+    iconMap.forEach((_, iconId) => {
+      const icon =
+        fetchedFavorites.icons.find((i) => i.id === iconId) ||
+        queuedActions.find(
+          (action) =>
+            action.section === "icons" &&
+            action.item.id === iconId &&
+            action.action === "add"
+        )?.item;
+      if (icon) updatedIcons.push(icon);
+    });
+
+    const updatedComics = [];
+    comicMap.forEach((_, comicId) => {
+      const comic =
+        fetchedFavorites.comics.find((c) => c.id === comicId) ||
+        queuedActions.find(
+          (action) =>
+            action.section === "comics" &&
+            action.item.id === comicId &&
+            action.action === "add"
+        )?.item;
+      if (comic) updatedComics.push(comic);
+    });
+
+    setFavorites({
+      movies: updatedMovies,
+      quotes: updatedQuotes,
+      icons: updatedIcons,
+      comics: updatedComics,
+    });
   };
 
   const queueFavoriteAction = (item, section, action) => {
@@ -141,6 +200,30 @@ export function FavoritesProvider({ children }) {
           quotes: prev.quotes.filter(
             (q) => `${q.quote}|${q.movie}|${q.character}` !== quoteKey
           ),
+        }));
+      }
+    } else if (section === "icons") {
+      if (action === "add") {
+        setFavorites((prev) => ({
+          ...prev,
+          icons: [...prev.icons, item],
+        }));
+      } else {
+        setFavorites((prev) => ({
+          ...prev,
+          icons: prev.icons.filter((fav) => fav.id !== item.id),
+        }));
+      }
+    } else if (section === "comics") {
+      if (action === "add") {
+        setFavorites((prev) => ({
+          ...prev,
+          comics: [...prev.comics, item],
+        }));
+      } else {
+        setFavorites((prev) => ({
+          ...prev,
+          comics: prev.comics.filter((fav) => fav.id !== item.id),
         }));
       }
     }

@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { Heart, ChevronRight } from "lucide-react";
+import { useFavorites } from "@/context/FavoritesContext";
 
 const ComicCard = ({
   id,
@@ -10,9 +13,10 @@ const ComicCard = ({
   volume,
   summary,
   siteDetailUrl,
-  isFavorite = false,
-  onToggleFavorite,
 }) => {
+  const { favorites, queueFavoriteAction } = useFavorites();
+  const isFavorite = favorites.comics.some((comic) => comic.id === id);
+
   // Format the date properly
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -37,25 +41,9 @@ const ComicCard = ({
     siteDetailUrl,
   };
 
-  // Function to queue favorite actions
-  const queueFavoriteAction = (action) => {
-    const queuedActions = JSON.parse(
-      localStorage.getItem("favoriteActions") || "[]"
-    );
-    const newAction = {
-      section: "comics",
-      item: comicData, // Store the entire comic object
-      action,
-    };
-    queuedActions.push(newAction);
-    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
-  };
-
   // Handle favorite button click
   const handleFavoriteClick = () => {
-    const newFavoriteState = !isFavorite;
-    onToggleFavorite(newFavoriteState);
-    queueFavoriteAction(newFavoriteState ? "add" : "remove");
+    queueFavoriteAction(comicData, "comics", isFavorite ? "remove" : "add");
   };
 
   return (

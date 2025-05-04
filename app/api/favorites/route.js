@@ -1,6 +1,7 @@
 import { connectToDatabase } from "@/lib/mongodb";
 import Favorite from "@/models/Favorite";
 import { getAuth } from "@clerk/nextjs/server";
+import { icons } from "lucide-react";
 
 export async function POST(req) {
   try {
@@ -63,6 +64,8 @@ export async function GET(req) {
     const favorites = {
       movies: favoriteDoc?.favorites?.movies || [],
       quotes: favoriteDoc?.favorites?.quotes || [],
+      icons: favoriteDoc?.favorites?.icons || [],
+      comics: favoriteDoc?.favorites?.comics || [],
     };
 
     return new Response(JSON.stringify(favorites), {
