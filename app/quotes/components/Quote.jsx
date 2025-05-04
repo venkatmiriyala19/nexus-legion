@@ -28,7 +28,7 @@ export default function Quote({ quote, author, movie, heart = false }) {
 
         {/* Quote text */}
         <div className="flex justify-center">
-          <div className="flex items-start relative">
+          <div className="flex items-start">
             <h1 className="font-spectral text-4xl text-center uppercase bg-gradient-to-r from-white to-purple-900 bg-clip-text text-transparent mb-4 leading-normal">
               {quote}
             </h1>

@@ -8,6 +8,7 @@ import Quote from "../quotes/components/Quote";
 import Pagination from "./components/Pagination";
 import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Hello from "./components/Hello";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -81,8 +82,9 @@ export default function ProfilePage() {
   return (
     <div className="p-6">
       {/* QUOTE SECTION */}
+      <Hello />
       {quotes.length > 0 && currentQuote && (
-        <div className="mt-12">
+        <div className="mt-6">
           <h1 className="font-cinzel text-4xl font-bold mb-3">
             Favourite Quotes
           </h1>
