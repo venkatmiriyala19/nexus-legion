@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import CharacterModal from "./CharacterModal";
+
 export default function CharacterCard({
   name,
   fullName,
@@ -38,17 +39,38 @@ export default function CharacterCard({
     alignment,
     image,
     stats: powerstats,
-    // These will be extracted from hero in the modal
     biography: hero?.biography,
     appearance: hero?.appearance,
     work: hero?.work,
     connections: hero?.connections,
   };
+
+  // Function to queue favorite actions
+  const queueFavoriteAction = (action) => {
+    const queuedActions = JSON.parse(
+      localStorage.getItem("favoriteActions") || "[]"
+    );
+    const newAction = {
+      section: "icons",
+      item: hero, // Store the entire hero object
+      action,
+    };
+    queuedActions.push(newAction);
+    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
+  };
+
+  // Handle favorite button click
+  const handleFavoriteClick = () => {
+    const newFavoriteState = !isFavorite;
+    setIsFavorite(newFavoriteState);
+    queueFavoriteAction(newFavoriteState ? "add" : "remove");
+  };
+
   return (
     <>
       <div className="w-full max-w-md rounded-xl overflow-hidden bg-transparent text-white border border-white">
         <div className="px-8 py-6">
-          {/* Image section with placeholder or actual image if available */}
+          {/* Image section */}
           <div className="relative h-48 rounded-lg overflow-hidden mb-4 bg-gray-800">
             <img
               src={image || "/images/StarWars.jpg"}
@@ -109,7 +131,7 @@ export default function CharacterCard({
             </div>
           </div>
 
-          {/* Character details with actions on alignment row */}
+          {/* Character details */}
           <div className="space-y-0 mb-4">
             <div className="flex">
               <span className="text-lg mr-1 font-medium text-transparent bg-gradient-to-r from-white to-[#7B61FF] bg-clip-text">
@@ -137,7 +159,7 @@ export default function CharacterCard({
               <div className="flex gap-3">
                 <button
                   className="text-white cursor-pointer"
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={handleFavoriteClick}
                 >
                   {isFavorite ? (
                     <Heart className="w-6 h-6 text-[#fff] fill-[#fff]" />
@@ -145,7 +167,6 @@ export default function CharacterCard({
                     <Heart className="w-6 h-6" />
                   )}
                 </button>
-
                 <button
                   className="text-white cursor-pointer"
                   onClick={() => setIsModalOpen(true)}
