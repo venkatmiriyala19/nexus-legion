@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import SuperheroLoader from "./components/SuperheroLoader";
 import Navbar from "./components/Navbar";
 import { setupBatchFavorites } from "@/utils/sendBatchFavorites";
+import { FavoritesProvider } from "@/context/FavoritesContext";
 
 // Minimum time to show the loader in milliseconds (0 seconds as per your code)
 const MIN_LOADER_TIME = 0;
@@ -77,14 +78,16 @@ export default function ClientWrapper({ children }) {
 
   return (
     <>
-      <SignedOut>
-        <SignInButton />
-        {children}
-      </SignedOut>
-      <SignedIn>
-        <Navbar />
-        <div className="mt-8">{children}</div>
-      </SignedIn>
+      <FavoritesProvider>
+        <SignedOut>
+          <SignInButton />
+          {children}
+        </SignedOut>
+        <SignedIn>
+          <Navbar />
+          <div className="mt-8">{children}</div>
+        </SignedIn>
+      </FavoritesProvider>
     </>
   );
 }

@@ -17,15 +17,18 @@ export function setupBatchFavorites() {
       if (response.ok) {
         // Clear the queue on success
         localStorage.removeItem("favoriteActions");
+        // Trigger a re-fetch of favorites (handled by FavoritesContext)
+        // You could dispatch an event or use a refetch function if needed
       } else {
         console.error("Failed to send batch favorites", response.status);
-        // Optionally, keep the queue for retry later
       }
     } catch (err) {
       console.error("Error sending batch favorites", err);
-      // Keep the queue for retry later
     }
   };
+
+  // Periodic batch sending (e.g., every 30 seconds)
+  const interval = setInterval(sendBatch, 30000);
 
   // Use beacon API for reliable sending during unload
   window.addEventListener("beforeunload", () => {
@@ -37,8 +40,10 @@ export function setupBatchFavorites() {
         "/api/favorites/batch",
         JSON.stringify({ actions: queuedActions })
       );
-      // Clear the queue optimistically
       localStorage.removeItem("favoriteActions");
     }
   });
+
+  // Cleanup interval on unmount
+  return () => clearInterval(interval);
 }

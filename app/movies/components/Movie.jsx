@@ -1,45 +1,17 @@
+// Movie.jsx
 "use client";
+
 import { useState } from "react";
-import {
-  Heart,
-  Clock,
-  Calendar,
-  Star,
-  DollarSign,
-  X,
-  MessageCircle,
-  Globe,
-} from "lucide-react";
+import { Heart, Star, X, MessageCircle, Globe } from "lucide-react";
+import { useFavorites } from "@/context/FavoritesContext";
 
 export default function Movie({ image, title, year, movie }) {
+  const { favorites, queueFavoriteAction } = useFavorites();
   const [showModal, setShowModal] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const isFavorite = favorites.some((fav) => fav.id === movie.id);
 
-  // Format budget to millions with $ sign
-  const formatBudget = (budget) => {
-    if (!budget) return "N/A";
-    return `$${Math.round(budget / 1000000)}M`;
-  };
-
-  // Function to queue favorite actions
-  const queueFavoriteAction = (action) => {
-    const queuedActions = JSON.parse(
-      localStorage.getItem("favoriteActions") || "[]"
-    );
-    const newAction = {
-      section: "movies",
-      item: movie, // Store the entire movie object
-      action,
-    };
-    queuedActions.push(newAction);
-    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
-  };
-
-  // Handle favorite button click
   const handleFavoriteClick = () => {
-    const newFavoriteState = !isFavorite;
-    setIsFavorite(newFavoriteState);
-    queueFavoriteAction(newFavoriteState ? "add" : "remove");
+    queueFavoriteAction(movie, isFavorite ? "remove" : "add");
   };
 
   return (
@@ -54,7 +26,6 @@ export default function Movie({ image, title, year, movie }) {
               e.target.src = "/images/StarWars.jpg";
             }}
           />
-
           <h2 className="text-xl font-medium text-white">{title}</h2>
         </div>
         <div className="flex items-center gap-6 mr-4">
@@ -75,12 +46,11 @@ export default function Movie({ image, title, year, movie }) {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal (unchanged) */}
       {showModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 custom-scrollbar">
           <div className="bg-black border border-[#7B61FF]/30 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="relative">
-              {/* Header image with gradient overlay */}
               <div className="w-full h-96 relative">
                 <img
                   src={
@@ -92,8 +62,6 @@ export default function Movie({ image, title, year, movie }) {
                   className="w-full h-full object-cover rounded-t-xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
-
-                {/* Close button */}
                 <button
                   className="absolute top-4 right-4 bg-black/50 rounded-full p-2"
                   onClick={() => setShowModal(false)}
@@ -101,8 +69,6 @@ export default function Movie({ image, title, year, movie }) {
                   <X size={20} className="text-white cursor-pointer" />
                 </button>
               </div>
-
-              {/* Movie title and year */}
               <div className="absolute bottom-4 left-0 p-6">
                 <h1 className="text-3xl font-bold text-white mb-1">
                   {movie?.title || "Mars Attacks!"}
@@ -112,10 +78,7 @@ export default function Movie({ image, title, year, movie }) {
                 </p>
               </div>
             </div>
-
-            {/* Movie details */}
             <div className="p-6">
-              {/* Stats row */}
               <div className="flex flex-wrap gap-6 mb-6 text-white/80">
                 <div className="flex items-center gap-2">
                   <Star size={16} className="text-[#7B61FF]" />
@@ -130,8 +93,6 @@ export default function Movie({ image, title, year, movie }) {
                   <span>{movie?.original_language?.toUpperCase() || "EN"}</span>
                 </div>
               </div>
-
-              {/* Overview */}
               <div className="mb-6">
                 <h3 className="text-[#7B61FF] font-medium mb-2">Overview</h3>
                 <p className="text-white/80 leading-relaxed">
@@ -139,8 +100,6 @@ export default function Movie({ image, title, year, movie }) {
                     "A fleet of Martian spacecraft surrounds the world's major cities and all of humanity waits to see if the extraterrestrial visitors have, as they claim, \"come in peace.\" U.S. President James Dale receives assurance from science professor Donald Kessler that the Martians' mission is a friendly one. But when a peaceful exchange ends in the total annihilation of the U.S. Congress, military men call for a full-scale nuclear retaliation."}
                 </p>
               </div>
-
-              {/* Popularity */}
               <div className="mb-6">
                 <h3 className="text-[#7B61FF] font-medium mb-2">Popularity</h3>
                 <div className="bg-white/10 h-2 rounded-full w-full">

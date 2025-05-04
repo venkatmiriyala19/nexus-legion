@@ -42,3 +42,35 @@ export async function POST(req) {
     return new Response("Server error", { status: 500 });
   }
 }
+
+export async function GET(req) {
+  try {
+    const { userId } = getAuth(req);
+
+    if (!userId) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    await connectToDatabase();
+
+    // Find the user's favorites document
+    const favoriteDoc = await Favorite.findOne({ userId });
+
+    // Extract movies from the favorites document, or return an empty array
+    const movies = favoriteDoc?.favorites?.movies || [];
+
+    return new Response(JSON.stringify(movies), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Error fetching favorites:", err);
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
