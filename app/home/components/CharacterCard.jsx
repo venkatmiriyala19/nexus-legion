@@ -24,6 +24,7 @@ export default function CharacterCard({
   const { favorites, queueFavoriteAction } = useFavorites();
   const isFavorite = favorites.icons.some((icon) => icon.id === hero.id);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Set default stat values if stats are not provided
   const powerstats = stats || {
@@ -49,6 +50,8 @@ export default function CharacterCard({
 
   const handleFavoriteClick = () => {
     queueFavoriteAction(hero, "icons", isFavorite ? "remove" : "add");
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   return (
@@ -149,9 +152,11 @@ export default function CharacterCard({
                 >
                   <Heart
                     size={24}
-                    className={
-                      isFavorite ? "fill-white text-white" : "text-gray-400"
-                    }
+                    className={`cursor-pointer  transition-all duration-300 ease-in-out
+                  ${isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"}
+                  ${isAnimating ? "scale-125" : "scale-100"}
+                  hover:scale-110
+                `}
                   />
                 </button>
                 <button

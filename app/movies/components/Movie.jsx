@@ -9,9 +9,12 @@ export default function Movie({ image, title, year, movie }) {
   const { favorites, queueFavoriteAction } = useFavorites();
   const [showModal, setShowModal] = useState(false);
   const isFavorite = favorites.movies.some((fav) => fav.id === movie.id);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleFavoriteClick = () => {
-    queueFavoriteAction(movie, isFavorite ? "remove" : "add");
+    queueFavoriteAction(movie, "movies", isFavorite ? "remove" : "add");
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   return (
@@ -31,9 +34,11 @@ export default function Movie({ image, title, year, movie }) {
         <div className="flex items-center gap-6 mr-4">
           <Heart
             size={18}
-            className={`cursor-pointer ${
-              isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
-            }`}
+            className={`cursor-pointer  transition-all duration-300 ease-in-out
+                  ${isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"}
+                  ${isAnimating ? "scale-125" : "scale-100"}
+                  hover:scale-110
+                `}
             onClick={handleFavoriteClick}
           />
           <p className="text-md text-white/50">{year}</p>

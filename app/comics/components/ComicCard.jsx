@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Heart, ChevronRight } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
 
@@ -16,6 +16,7 @@ const ComicCard = ({
 }) => {
   const { favorites, queueFavoriteAction } = useFavorites();
   const isFavorite = favorites.comics.some((comic) => comic.id === id);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Format the date properly
   const formatDate = (dateString) => {
@@ -44,6 +45,8 @@ const ComicCard = ({
   // Handle favorite button click
   const handleFavoriteClick = () => {
     queueFavoriteAction(comicData, "comics", isFavorite ? "remove" : "add");
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   return (
@@ -107,7 +110,11 @@ const ComicCard = ({
           >
             <Heart
               size={24}
-              className={isFavorite ? "fill-white text-white" : "text-gray-400"}
+              className={`cursor-pointer  transition-all duration-300 ease-in-out
+                  ${isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"}
+                  ${isAnimating ? "scale-125" : "scale-100"}
+                  hover:scale-110
+                `}
             />
           </button>
           <button
@@ -115,7 +122,7 @@ const ComicCard = ({
             className="cursor-pointer text-gray-300 hover:text-white"
             aria-label="View Details"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={28} />
           </button>
         </div>
       </div>
