@@ -22,6 +22,18 @@ export default function ProfilePage() {
   const comicsPerPage = 3;
   const moviesPerPage = 3;
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (
+      icons.length > 0 ||
+      comics.length > 0 ||
+      movies.length > 0 ||
+      quotes.length > 0
+    ) {
+      setLoading(false);
+    }
+  }, [icons, comics, movies, quotes]);
   // ICONS pagination
   const [iconPage, setIconPage] = useState(1);
   const iconTotalPages = Math.ceil(icons.length / itemsPerPage);
@@ -59,6 +71,13 @@ export default function ProfilePage() {
 
   const currentQuote = quotes[quoteIndex];
 
+  if (loading) {
+    return (
+      <div className="flex justify-center my-10">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-white"></div>
+      </div>
+    );
+  }
   return (
     <div className="p-6">
       {/* QUOTE SECTION */}
