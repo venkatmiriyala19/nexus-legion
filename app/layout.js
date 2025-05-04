@@ -6,6 +6,9 @@ import ClientWrapper from "./ClientWrapper";
 export const metadata = {
   title: "Nexus Legion",
   description: "One Legion to rule them all",
+  icons: {
+    icon: "/Nexus-Legion.png",
+  },
 };
 
 export default function RootLayout({ children }) {
