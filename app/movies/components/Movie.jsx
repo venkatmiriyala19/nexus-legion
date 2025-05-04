@@ -21,6 +21,27 @@ export default function Movie({ image, title, year, movie }) {
     return `$${Math.round(budget / 1000000)}M`;
   };
 
+  // Function to queue favorite actions
+  const queueFavoriteAction = (action) => {
+    const queuedActions = JSON.parse(
+      localStorage.getItem("favoriteActions") || "[]"
+    );
+    const newAction = {
+      section: "movies",
+      item: movie, // Store the entire movie object
+      action,
+    };
+    queuedActions.push(newAction);
+    localStorage.setItem("favoriteActions", JSON.stringify(queuedActions));
+  };
+
+  // Handle favorite button click
+  const handleFavoriteClick = () => {
+    const newFavoriteState = !isFavorite;
+    setIsFavorite(newFavoriteState);
+    queueFavoriteAction(newFavoriteState ? "add" : "remove");
+  };
+
   return (
     <>
       <div className="w-full bg-black/20 backdrop-blur-sm border border-white/10 rounded-lg flex items-center p-4 justify-between mb-4 hover:border-[#7B61FF]/50 transition-all">
@@ -42,7 +63,7 @@ export default function Movie({ image, title, year, movie }) {
             className={`cursor-pointer ${
               isFavorite ? "text-[#7B61FF] fill-[#7B61FF]" : "text-white"
             }`}
-            onClick={() => setIsFavorite(!isFavorite)}
+            onClick={handleFavoriteClick}
           />
           <p className="text-md text-white/50">{year}</p>
           <button
@@ -110,8 +131,6 @@ export default function Movie({ image, title, year, movie }) {
                 </div>
               </div>
 
-              {/* Genres */}
-
               {/* Overview */}
               <div className="mb-6">
                 <h3 className="text-[#7B61FF] font-medium mb-2">Overview</h3>
@@ -139,30 +158,6 @@ export default function Movie({ image, title, year, movie }) {
                   </span>
                 </div>
               </div>
-
-              {/* Actions */}
-              {/* <div className="flex gap-4 mt-8">
-                <button className="flex-1 bg-[#7B61FF] text-white py-3 rounded-lg font-medium hover:bg-[#8E78FF] transition-colors">
-                  Watch Trailer
-                </button>
-                <button
-                  className={`flex items-center justify-center w-12 h-12 rounded-lg border ${
-                    isFavorite
-                      ? "bg-[#7B61FF]/20 border-[#7B61FF]"
-                      : "bg-white/5 border-white/20"
-                  }`}
-                  onClick={() => setIsFavorite(!isFavorite)}
-                >
-                  <Heart
-                    size={20}
-                    className={
-                      isFavorite
-                        ? "text-[#7B61FF] fill-[#7B61FF]"
-                        : "text-white"
-                    }
-                  />
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
